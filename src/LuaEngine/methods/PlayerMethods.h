@@ -3503,11 +3503,6 @@ namespace LuaPlayer
         uint8 channel = ALE::CHECKVAL<uint8>(L, 4);
         Player* receiver = ALE::CHECKOBJ<Player>(L, 5);
 
-        // Stock 3.3.5 clients crash (ERROR #134) on wire type CHAT_MSG_ADDON (0xFF).
-        // Normalize to WHISPER: with LANG_ADDON the client still fires CHAT_MSG_ADDON.
-        if (channel == CHAT_MSG_ADDON)
-            channel = CHAT_MSG_WHISPER;
-
         std::string fullmsg = prefix + "\t" + message;
 
         WorldPacket data(SMSG_MESSAGECHAT, 100);
